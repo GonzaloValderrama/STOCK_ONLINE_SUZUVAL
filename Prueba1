@@ -30,9 +30,9 @@ function obtenerDatoColumnaD() {
         var fechaFormateada = Utilities.formatDate(fechaColumnaS, "GMT-5", "dd-MM-yyyy");
         
         // Imprimir el resultado o hacer lo que desees con el dato de la columna "D"
-        Logger.log(fechaFormateada);
+        //Logger.log(fechaFormateada);
         Logger.log(datoColumnaD.toString());  // Convertir a cadena para evitar el ".0"
-        Logger.log((datoColumnaF + " ") + (datoColumnaI + " ") + (datoColumnaR + " ") + datoColumnaQ.toString());
+        //Logger.log((datoColumnaF + " ") + (datoColumnaI + " ") + (datoColumnaR + " ") + datoColumnaQ.toString());
       }
     }
   }
