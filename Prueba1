@@ -1,0 +1,39 @@
+function obtenerDatoColumnaD() {
+  var hoja = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var ultimaFila = hoja.getLastRow();
+  var datos = hoja.getRange(1, 1, ultimaFila, hoja.getLastColumn()).getValues();
+
+  // Obtener la fecha de hoy
+  var hoy = new Date();
+
+  // Iterar a través de los datos
+  for (var i = 0; i < datos.length; i++) {
+    var fechaColumnaS = datos[i][18]; // Columna "S" es la 19ª columna (0 indexado)
+    var datoColumnaH = datos[i][7];   // Columna "H" es la 8ª columna (0 indexado)
+    var datoColumnaY = datos[i][23];  // Columna "Y" es la 24ª columna (0 indexado)
+    var datoColumnaD = datos[i][3];   // Columna "D" es la 4ª columna (0 indexado)
+    var datoColumnaF = datos[i][5];   // Columna "F" es la 6ª columna (0 indexado)
+    var datoColumnaI = datos[i][8];   // Columna "I" es la 9ª columna (0 indexado)
+    var datoColumnaR = datos[i][17];  // Columna "R" es la 18ª columna (0 indexado)
+    var datoColumnaQ = datos[i][16];  // Columna "O" es la 17ª columna (0 indexado)
+
+    // Verificar si hay una fecha en la columna "S", si el valor en la columna "H" no es "SALDO COMPLETO"
+    // y si el valor en la columna "Y" es 1 o 2
+    if (fechaColumnaS instanceof Date && datoColumnaH !== "SALDO COMPLETO" && (datoColumnaY === 1 || datoColumnaY === 2)) {
+      // Calcular la fecha hasta 5 días atrás
+      var fechaHace5Dias = new Date(hoy);
+      fechaHace5Dias.setDate(hoy.getDate() - 5);
+
+      // Verificar si la fecha en la columna "S" está dentro del rango de los últimos 5 días
+      if (fechaColumnaS >= fechaHace5Dias && fechaColumnaS <= hoy) {
+        // Formatear la fecha a un formato más legible
+        var fechaFormateada = Utilities.formatDate(fechaColumnaS, "GMT-5", "dd-MM-yyyy");
+        
+        // Imprimir el resultado o hacer lo que desees con el dato de la columna "D"
+        Logger.log(fechaFormateada);
+        Logger.log(datoColumnaD.toString());  // Convertir a cadena para evitar el ".0"
+        Logger.log((datoColumnaF + " ") + (datoColumnaI + " ") + (datoColumnaR + " ") + datoColumnaQ.toString());
+      }
+    }
+  }
+}
